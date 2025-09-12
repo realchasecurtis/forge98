@@ -36,37 +36,6 @@ body {
   color: #fff;
 }
 
-/* Retro scrollbar inside windows */
-.window-content {
-  flex: 1;
-  background: #000;
-  color: #fff;
-  padding: 5px;
-  overflow: auto; /* allow scrolling */
-}
-
-/* Chrome/Edge/WebKit */
-.window-content::-webkit-scrollbar {
-  width: 16px;
-  background: #000;
-}
-
-.window-content::-webkit-scrollbar-track {
-  background: #000;
-  border: 2px solid #fff;
-}
-
-.window-content::-webkit-scrollbar-thumb {
-  background: #444;
-  border: 2px solid #fff;
-}
-
-/* Firefox */
-.window-content {
-  scrollbar-width: thin;
-  scrollbar-color: #444 #000;
-}
-
 /* Music Player */
 #music-player {
   position: absolute;

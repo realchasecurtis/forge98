@@ -46,6 +46,10 @@ body {
   z-index: 10;
   display: flex;
   flex-direction: column;
+  min-width: 200px;   /* 👈 prevent shrinking too small */
+  min-height: 150px;  /* 👈 prevent shrinking too small */
+  overflow: hidden;   /* 👈 contain children */
+}
 }
 .title-bar {
   background: #222;
@@ -72,6 +76,8 @@ body {
   background: #000;
   color: #fff;
   padding: 5px;
+  overflow: auto;     /* 👈 adds scrollbars if content is larger than window */
+  box-sizing: border-box;
 }
 .window iframe {
   width: 100%;

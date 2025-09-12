@@ -3,7 +3,7 @@ const Taskbar = {
   container: null,
 
   init() {
-    this.container = document.getElementById("taskbar");
+    this.container = document.getElementById("taskbar-items");
   },
 
   add(appId, title, winEl) {
@@ -21,6 +21,6 @@ const Taskbar = {
     };
 
     this.container.appendChild(btn);
-    return btn; // 👈 return so windows.js can track/remove
+    return btn; // let windows.js remove it when closed
   }
 };

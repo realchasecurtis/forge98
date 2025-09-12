@@ -4,34 +4,44 @@ window.onload = () => {
   Taskbar.init();
 
   document.querySelectorAll(".icon").forEach(icon => {
-    let offsetX, offsetY, isDragging = false;
+    let offsetX, offsetY;
+    let isDragging = false;
 
     // Dragging icons
-    icon.onmousedown = e => {
+    icon.addEventListener("mousedown", e => {
+      e.preventDefault();
       isDragging = true;
       offsetX = e.clientX - icon.offsetLeft;
       offsetY = e.clientY - icon.offsetTop;
-      document.onmousemove = e2 => {
+
+      function onMouseMove(e2) {
         if (isDragging) {
           icon.style.left = (e2.clientX - offsetX) + "px";
           icon.style.top = (e2.clientY - offsetY) + "px";
         }
-      };
-      document.onmouseup = () => {
-        isDragging = false;
-        document.onmousemove = null;
-        Storage.saveIconPositions();
-      };
-    };
+      }
+
+      function onMouseUp() {
+        if (isDragging) {
+          isDragging = false;
+          Storage.saveIconPositions();
+        }
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    });
 
     // Open windows on double click
-    icon.ondblclick = () => {
+    icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
       if (appId === "halo") {
         createWindow(appId, "Halo", "https://halo.forgebunker.com");
       } else if (appId === "osrs") {
         createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
       }
-    };
+    });
   });
 };

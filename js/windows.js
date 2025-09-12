@@ -38,7 +38,7 @@ function createWindow(appId, title, url) {
   win.appendChild(content);
 
   // Add resize handles
-  const handles = ["n","s","e","w","ne","nw","se","sw"];
+  const handles = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
   handles.forEach(dir => {
     const handle = document.createElement("div");
     handle.className = `resize-handle ${dir}`;
@@ -61,25 +61,26 @@ function createWindow(appId, title, url) {
         let newTop = startTop;
         let newLeft = startLeft;
 
-        if (dir.includes("e")) newWidth = startWidth + (e2.clientX - startX);
-        if (dir.includes("s")) newHeight = startHeight + (e2.clientY - startY);
+        // Resize logic with minimums enforced
+        if (dir.includes("e")) {
+          newWidth = Math.max(200, startWidth + (e2.clientX - startX));
+        }
+        if (dir.includes("s")) {
+          newHeight = Math.max(150, startHeight + (e2.clientY - startY));
+        }
         if (dir.includes("w")) {
-          newWidth = startWidth - (e2.clientX - startX);
+          newWidth = Math.max(200, startWidth - (e2.clientX - startX));
           newLeft = startLeft + (e2.clientX - startX);
         }
         if (dir.includes("n")) {
-          newHeight = startHeight - (e2.clientY - startY);
+          newHeight = Math.max(150, startHeight - (e2.clientY - startY));
           newTop = startTop + (e2.clientY - startY);
         }
 
-        if (newWidth > 200) {
-          win.style.width = newWidth + "px";
-          win.style.left = newLeft + "px";
-        }
-        if (newHeight > 150) {
-          win.style.height = newHeight + "px";
-          win.style.top = newTop + "px";
-        }
+        win.style.width = newWidth + "px";
+        win.style.height = newHeight + "px";
+        win.style.top = newTop + "px";
+        win.style.left = newLeft + "px";
       }
 
       function onMouseUp() {
@@ -99,13 +100,16 @@ function createWindow(appId, title, url) {
   titleBar.onmousedown = e => {
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
-    document.onmousemove = e2 => {
+
+    function dragMove(e2) {
       win.style.left = (e2.clientX - offsetX) + "px";
       win.style.top = (e2.clientY - offsetY) + "px";
-    };
-    document.onmouseup = () => {
-      document.onmousemove = null;
-    };
+    }
+
+    document.addEventListener("mousemove", dragMove);
+    document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", dragMove);
+    }, { once: true });
   };
 
   // Bring to front

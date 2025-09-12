@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forge98 Night Mode</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Static Logo -->
+  <img id="logo" src="assets/logo.png" alt="Forge Logo">
+
+  <!-- Desktop Icons -->
+  <div id="desktop">
+    <div class="icon" data-app="docs" style="top:100px;left:50px;">
+      <img src="assets/icons/folder.png" alt="Docs">
+      <span>Docs</span>
+    </div>
+    <div class="icon" data-app="projects" style="top:200px;left:50px;">
+      <img src="assets/icons/folder.png" alt="Projects">
+      <span>Projects</span>
+    </div>
+  </div>
+
+  <!-- Windows Container -->
+  <div id="windows"></div>
+
+  <!-- Taskbar -->
+  <div id="taskbar"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/taskbar.js"></script>
+  <script src="js/windows.js"></script>
+  <script src="js/desktop.js"></script>
+</body>
+</html>

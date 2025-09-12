@@ -43,8 +43,6 @@ window.onload = () => {
       } else if (appId === "osrs") {
         createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
       } else if (appId === "music") {
-        createVisualizerWindow(appId, "Music Player");
-      } else if (appId === "twitter") {
         createWindow(appId, "Twitter", "https://x.com/realchasecurtis");
       }
     });

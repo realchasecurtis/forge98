@@ -7,18 +7,6 @@ window.onload = () => {
     let offsetX, offsetY;
     let isDragging = false;
 
-    // Music App
-    icon.addEventListener("dblclick", () => {
-  const appId = icon.dataset.app;
-  if (appId === "halo") {
-    createWindow(appId, "Halo", "https://halo.forgebunker.com");
-  } else if (appId === "osrs") {
-    createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
-  } else if (appId === "music") {
-    createVisualizerWindow(appId, "Music Player");
-  }
-});
-
     // Dragging icons
     icon.addEventListener("mousedown", e => {
       e.preventDefault();
@@ -46,13 +34,16 @@ window.onload = () => {
       document.addEventListener("mouseup", onMouseUp);
     });
 
-    // Open windows on double click
+    // Open windows on double click (single handler for all apps)
     icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
+
       if (appId === "halo") {
         createWindow(appId, "Halo", "https://halo.forgebunker.com");
       } else if (appId === "osrs") {
         createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
+      } else if (appId === "music") {
+        createVisualizerWindow(appId, "Music Player");
       } else if (appId === "twitter") {
         createWindow(appId, "Twitter", "https://x.com/realchasecurtis");
       }

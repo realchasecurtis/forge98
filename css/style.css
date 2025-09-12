@@ -80,15 +80,14 @@ body {
   flex: 1;
   background: #000;
   color: #fff;
-  padding: 5px;
-  overflow: hidden;   /* 👈 prevent outer scrollbar */
+  padding: 0;            /* remove padding so iframe fits exactly */
+  overflow: hidden;      /* stop outer scrollbar */
+  display: flex;
 }
 
 .window iframe {
-  width: 100%;
-  height: 100%;
+  flex: 1;               /* take all space */
   border: none;
-  overflow: auto;     /* 👈 allow inner iframe to handle scrolling */
 }
 
 /* Taskbar */

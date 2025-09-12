@@ -1,21 +1,20 @@
-// Handles persistence of icons & window states
-const Storage = {
-  saveIconPositions() {
-    const icons = [...document.querySelectorAll('.icon')].map(icon => ({
-      id: icon.dataset.app,
-      top: icon.style.top,
-      left: icon.style.left
-    }));
-    localStorage.setItem("iconPositions", JSON.stringify(icons));
+// Manages bottom taskbar items
+const Taskbar = {
+  container: null,
+  init() {
+    this.container = document.getElementById("taskbar");
   },
-  loadIconPositions() {
-    const icons = JSON.parse(localStorage.getItem("iconPositions") || "[]");
-    icons.forEach(pos => {
-      const icon = document.querySelector(`.icon[data-app="${pos.id}"]`);
-      if (icon) {
-        icon.style.top = pos.top;
-        icon.style.left = pos.left;
+  add(appId, title, winEl) {
+    const btn = document.createElement("div");
+    btn.className = "taskbar-item";
+    btn.innerText = title;
+    btn.onclick = () => {
+      if (winEl.style.display === "none") {
+        winEl.style.display = "flex";
+      } else {
+        winEl.style.display = "none";
       }
-    });
+    };
+    this.container.appendChild(btn);
   }
 };

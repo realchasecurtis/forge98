@@ -41,6 +41,8 @@ window.onload = () => {
         createWindow(appId, "Halo", "https://halo.forgebunker.com");
       } else if (appId === "osrs") {
         createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
+      } else if (appId === "twitter") {
+        createWindow(appId, "TWITTER", "https://x.com/realchasecurtis");
       }
     });
   });

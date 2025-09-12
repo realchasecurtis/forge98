@@ -101,3 +101,23 @@ body {
   cursor: pointer;
   font-size: 12px;
 }
+
+/* Resize handles */
+.window .resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+
+/* Corners */
+.window .resize-handle.nw { top: -2px; left: -2px; cursor: nwse-resize; }
+.window .resize-handle.ne { top: -2px; right: -2px; cursor: nesw-resize; }
+.window .resize-handle.sw { bottom: -2px; left: -2px; cursor: nesw-resize; }
+.window .resize-handle.se { bottom: -2px; right: -2px; cursor: nwse-resize; }
+
+/* Edges */
+.window .resize-handle.n { top: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
+.window .resize-handle.s { bottom: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
+.window .resize-handle.w { top: 50%; left: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
+.window .resize-handle.e { top: 50%; right: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }

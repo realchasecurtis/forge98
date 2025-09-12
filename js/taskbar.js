@@ -1,16 +1,15 @@
 const Taskbar = {
   container: null,
-  startButton: null,
 
   init() {
     this.container = document.getElementById("taskbar-items");
-    this.startButton = document.getElementById("start-button");
 
-    // Hook up the Start button → opens Forge About window
-    if (this.startButton) {
-      this.startButton.addEventListener("click", () => {
+    // 🔥 Wire up Start button
+    const startBtn = document.getElementById("start-button");
+    if (startBtn) {
+      startBtn.addEventListener("click", () => {
         createInfoWindow(
-          "about",
+          "forge-info",
           "Forge",
           "Built from the ground up. Every piece is designed and crafted in-house using 3D printing, prop fabrication, and practical effects techniques. FORGE turns imagination into hardware, delivering sci-fi props pulled straight from another world."
         );
@@ -23,6 +22,7 @@ const Taskbar = {
     btn.className = "taskbar-item";
     btn.innerText = title;
 
+    // Toggle window visibility
     btn.onclick = () => {
       if (winEl.style.display === "none") {
         winEl.style.display = "flex";
@@ -32,6 +32,6 @@ const Taskbar = {
     };
 
     this.container.appendChild(btn);
-    return btn; // MUST return for windows.js to remove
+    return btn;
   }
 };

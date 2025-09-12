@@ -98,9 +98,9 @@ body {
 
 /* Start button */
 #start-button {
-  background: #222;
-  color: #fff;
-  border: 2px solid #555;
+  background: #fff;           /* white background */
+  color: #000;                /* black text */
+  border: 2px solid #555;     /* subtle border */
   font-weight: bold;
   font-size: 14px;
   padding: 4px 12px;
@@ -109,7 +109,7 @@ body {
   user-select: none;
 }
 #start-button:hover {
-  background: #333;
+  background: #eee;           /* light gray hover */
 }
 
 /* Taskbar items (open windows) */

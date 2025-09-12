@@ -38,6 +38,57 @@ function createWindow(appId, title, url) {
 
   document.getElementById("windows").appendChild(win);
 
+  // ✅ Add resize handles
+  const handles = ["n","s","e","w","ne","nw","se","sw"];
+  handles.forEach(dir => {
+    const handle = document.createElement("div");
+    handle.className = `resize-handle ${dir}`;
+    win.appendChild(handle);
+
+    handle.addEventListener("mousedown", e => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const startWidth = win.offsetWidth;
+      const startHeight = win.offsetHeight;
+      const startTop = win.offsetTop;
+      const startLeft = win.offsetLeft;
+
+      function onMouseMove(e2) {
+        let newWidth = startWidth;
+        let newHeight = startHeight;
+        let newTop = startTop;
+        let newLeft = startLeft;
+
+        if (dir.includes("e")) newWidth = Math.max(200, startWidth + (e2.clientX - startX));
+        if (dir.includes("s")) newHeight = Math.max(150, startHeight + (e2.clientY - startY));
+        if (dir.includes("w")) {
+          newWidth = Math.max(200, startWidth - (e2.clientX - startX));
+          newLeft = startLeft + (e2.clientX - startX);
+        }
+        if (dir.includes("n")) {
+          newHeight = Math.max(150, startHeight - (e2.clientY - startY));
+          newTop = startTop + (e2.clientY - startY);
+        }
+
+        win.style.width = newWidth + "px";
+        win.style.height = newHeight + "px";
+        win.style.top = newTop + "px";
+        win.style.left = newLeft + "px";
+      }
+
+      function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    });
+  });
+
   // Add taskbar button and keep reference
   const taskbarBtn = Taskbar.add(appId, title, win);
 
@@ -63,57 +114,6 @@ function createWindow(appId, title, url) {
       document.removeEventListener("mousemove", dragMove);
     }, { once: true });
   };
-
-  // Add resize handles
-const handles = ["n","s","e","w","ne","nw","se","sw"];
-handles.forEach(dir => {
-  const handle = document.createElement("div");
-  handle.className = `resize-handle ${dir}`;
-  win.appendChild(handle);
-
-  handle.addEventListener("mousedown", e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const startX = e.clientX;
-    const startY = e.clientY;
-    const startWidth = win.offsetWidth;
-    const startHeight = win.offsetHeight;
-    const startTop = win.offsetTop;
-    const startLeft = win.offsetLeft;
-
-    function onMouseMove(e2) {
-      let newWidth = startWidth;
-      let newHeight = startHeight;
-      let newTop = startTop;
-      let newLeft = startLeft;
-
-      if (dir.includes("e")) newWidth = Math.max(200, startWidth + (e2.clientX - startX));
-      if (dir.includes("s")) newHeight = Math.max(150, startHeight + (e2.clientY - startY));
-      if (dir.includes("w")) {
-        newWidth = Math.max(200, startWidth - (e2.clientX - startX));
-        newLeft = startLeft + (e2.clientX - startX);
-      }
-      if (dir.includes("n")) {
-        newHeight = Math.max(150, startHeight - (e2.clientY - startY));
-        newTop = startTop + (e2.clientY - startY);
-      }
-
-      win.style.width = newWidth + "px";
-      win.style.height = newHeight + "px";
-      win.style.top = newTop + "px";
-      win.style.left = newLeft + "px";
-    }
-
-    function onMouseUp() {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
-    }
-
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
-  });
-});
 
   // Bring to front
   win.onmousedown = () => {

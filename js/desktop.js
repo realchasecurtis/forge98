@@ -27,10 +27,10 @@ window.onload = () => {
     // Open windows on double click
     icon.ondblclick = () => {
       const appId = icon.dataset.app;
-      if (appId === "docs") {
-        createWindow(appId, "Docs", "https://example.com/docs");
-      } else if (appId === "projects") {
-        createWindow(appId, "Projects", "https://example.com/projects");
+      if (appId === "halo") {
+        createWindow(appId, "Halo", "https://halo.forgebunker.com");
+      } else if (appId === "osrs") {
+        createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
       }
     };
   });

@@ -7,6 +7,18 @@ window.onload = () => {
     let offsetX, offsetY;
     let isDragging = false;
 
+    // Music App
+    icon.addEventListener("dblclick", () => {
+  const appId = icon.dataset.app;
+  if (appId === "halo") {
+    createWindow(appId, "Halo", "https://halo.forgebunker.com");
+  } else if (appId === "osrs") {
+    createWindow(appId, "OSRS", "https://osrs.forgebunker.com");
+  } else if (appId === "music") {
+    createVisualizerWindow(appId, "Music Player");
+  }
+});
+
     // Dragging icons
     icon.addEventListener("mousedown", e => {
       e.preventDefault();

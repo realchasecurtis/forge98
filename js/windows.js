@@ -15,10 +15,18 @@ function createWindow(appId, title, url) {
   // Title bar
   const titleBar = document.createElement("div");
   titleBar.className = "title-bar";
-  titleBar.innerHTML = `<span>${title}</span>`;
+  
+  // Left: window title text
+  const titleText = document.createElement("div");
+  titleText.className = "title-text";
+  titleText.innerText = title;
 
+  // Right: buttons container
   const buttons = document.createElement("div");
   buttons.className = "title-buttons";
+
+  titleBar.appendChild(titleText);  // goes left
+  titleBar.appendChild(buttons);    // goes right
 
   // Minimize button
   const minBtn = document.createElement("button");

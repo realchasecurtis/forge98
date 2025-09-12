@@ -6,7 +6,10 @@ function createWindow(appId, title, url) {
   win.className = "window";
   win.style.top = "100px";
   win.style.left = "200px";
+  win.style.width = "400px";
+  win.style.height = "300px";
 
+  // Title bar
   const titleBar = document.createElement("div");
   titleBar.className = "title-bar";
   titleBar.innerHTML = `<span>${title}</span>`;
@@ -25,6 +28,7 @@ function createWindow(appId, title, url) {
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "X";
 
+  // Content (currently iframe, later can be inline apps)
   const content = document.createElement("div");
   content.className = "window-content";
   content.innerHTML = `<iframe src="${url}"></iframe>`;
@@ -35,11 +39,10 @@ function createWindow(appId, title, url) {
   titleBar.appendChild(buttons);
   win.appendChild(titleBar);
   win.appendChild(content);
-
   document.getElementById("windows").appendChild(win);
 
   // ✅ Add resize handles
-  const handles = ["n","s","e","w","ne","nw","se","sw"];
+  const handles = ["n", "s", "e", "w", "ne", "nw", "se", "sw"];
   handles.forEach(dir => {
     const handle = document.createElement("div");
     handle.className = `resize-handle ${dir}`;
@@ -48,6 +51,10 @@ function createWindow(appId, title, url) {
     handle.addEventListener("mousedown", e => {
       e.preventDefault();
       e.stopPropagation();
+
+      // Disable iframe interaction during resize
+      const iframe = win.querySelector("iframe");
+      if (iframe) iframe.style.pointerEvents = "none";
 
       const startX = e.clientX;
       const startY = e.clientY;
@@ -80,6 +87,7 @@ function createWindow(appId, title, url) {
       }
 
       function onMouseUp() {
+        if (iframe) iframe.style.pointerEvents = "auto";
         document.removeEventListener("mousemove", onMouseMove);
         document.removeEventListener("mouseup", onMouseUp);
       }
@@ -89,7 +97,7 @@ function createWindow(appId, title, url) {
     });
   });
 
-  // Add taskbar button and keep reference
+  // Taskbar button
   const taskbarBtn = Taskbar.add(appId, title, win);
 
   // Close button removes both window and taskbar item
@@ -101,6 +109,9 @@ function createWindow(appId, title, url) {
   // Dragging window
   let offsetX, offsetY;
   titleBar.onmousedown = e => {
+    const iframe = win.querySelector("iframe");
+    if (iframe) iframe.style.pointerEvents = "none";
+
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
 
@@ -109,10 +120,14 @@ function createWindow(appId, title, url) {
       win.style.top = (e2.clientY - offsetY) + "px";
     }
 
-    document.addEventListener("mousemove", dragMove);
-    document.addEventListener("mouseup", () => {
+    function stopDrag() {
+      if (iframe) iframe.style.pointerEvents = "auto";
       document.removeEventListener("mousemove", dragMove);
-    }, { once: true });
+      document.removeEventListener("mouseup", stopDrag);
+    }
+
+    document.addEventListener("mousemove", dragMove);
+    document.addEventListener("mouseup", stopDrag);
   };
 
   // Bring to front

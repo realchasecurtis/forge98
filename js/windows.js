@@ -37,9 +37,64 @@ function createWindow(appId, title, url) {
   win.appendChild(titleBar);
   win.appendChild(content);
 
+  // Add resize handles
+  const handles = ["n","s","e","w","ne","nw","se","sw"];
+  handles.forEach(dir => {
+    const handle = document.createElement("div");
+    handle.className = `resize-handle ${dir}`;
+    win.appendChild(handle);
+
+    handle.addEventListener("mousedown", e => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const startWidth = win.offsetWidth;
+      const startHeight = win.offsetHeight;
+      const startTop = win.offsetTop;
+      const startLeft = win.offsetLeft;
+
+      function onMouseMove(e2) {
+        let newWidth = startWidth;
+        let newHeight = startHeight;
+        let newTop = startTop;
+        let newLeft = startLeft;
+
+        if (dir.includes("e")) newWidth = startWidth + (e2.clientX - startX);
+        if (dir.includes("s")) newHeight = startHeight + (e2.clientY - startY);
+        if (dir.includes("w")) {
+          newWidth = startWidth - (e2.clientX - startX);
+          newLeft = startLeft + (e2.clientX - startX);
+        }
+        if (dir.includes("n")) {
+          newHeight = startHeight - (e2.clientY - startY);
+          newTop = startTop + (e2.clientY - startY);
+        }
+
+        if (newWidth > 200) {
+          win.style.width = newWidth + "px";
+          win.style.left = newLeft + "px";
+        }
+        if (newHeight > 150) {
+          win.style.height = newHeight + "px";
+          win.style.top = newTop + "px";
+        }
+      }
+
+      function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    });
+  });
+
   document.getElementById("windows").appendChild(win);
 
-  // Dragging
+  // Dragging window
   let offsetX, offsetY;
   titleBar.onmousedown = e => {
     offsetX = e.clientX - win.offsetLeft;

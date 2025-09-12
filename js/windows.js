@@ -28,7 +28,7 @@ function createWindow(appId, title, url) {
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "X";
 
-  // Content (currently iframe, later can be inline apps)
+  // Content (iframe for now)
   const content = document.createElement("div");
   content.className = "window-content";
   content.innerHTML = `<iframe src="${url}"></iframe>`;
@@ -52,9 +52,8 @@ function createWindow(appId, title, url) {
       e.preventDefault();
       e.stopPropagation();
 
-      // Disable iframe interaction during resize
       const iframe = win.querySelector("iframe");
-      if (iframe) iframe.style.pointerEvents = "none";
+      if (iframe) iframe.style.pointerEvents = "none"; // disable during resize
 
       const startX = e.clientX;
       const startY = e.clientY;
@@ -87,7 +86,7 @@ function createWindow(appId, title, url) {
       }
 
       function onMouseUp() {
-        if (iframe) iframe.style.pointerEvents = "auto";
+        if (iframe) iframe.style.pointerEvents = "auto"; // re-enable after resize
         document.removeEventListener("mousemove", onMouseMove);
         document.removeEventListener("mouseup", onMouseUp);
       }
@@ -110,7 +109,7 @@ function createWindow(appId, title, url) {
   let offsetX, offsetY;
   titleBar.onmousedown = e => {
     const iframe = win.querySelector("iframe");
-    if (iframe) iframe.style.pointerEvents = "none";
+    if (iframe) iframe.style.pointerEvents = "none"; // disable during drag
 
     offsetX = e.clientX - win.offsetLeft;
     offsetY = e.clientY - win.offsetTop;
@@ -121,7 +120,7 @@ function createWindow(appId, title, url) {
     }
 
     function stopDrag() {
-      if (iframe) iframe.style.pointerEvents = "auto";
+      if (iframe) iframe.style.pointerEvents = "auto"; // re-enable after drag
       document.removeEventListener("mousemove", dragMove);
       document.removeEventListener("mouseup", stopDrag);
     }

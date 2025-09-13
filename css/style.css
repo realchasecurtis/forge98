@@ -214,9 +214,9 @@ body {
   justify-content: center;
   width: 24px;             /* classic size */
   height: 24px;
-  border: 1px solid #888;
-  background: #ccc;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
+  border: none;
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
   padding: 0;
 }

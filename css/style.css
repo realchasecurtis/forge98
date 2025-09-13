@@ -211,12 +211,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;           /* button-like box around each icon */
+  width: 28px;
   height: 28px;
   border: 1px solid #888;
   background: #ccc;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px #555; /* win98-style bevel */
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
   cursor: pointer;
+  padding: 0;          /* 🔥 removes any default spacing */
+  overflow: hidden;    /* ensures icon doesn't spill */
 }
 
 #quick-launch a:active {

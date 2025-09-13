@@ -19,8 +19,6 @@
       <img src="assets/icons/osrs-folder.png" alt="OSRS">
       <span>OSRS</span>
     </div>
-
-    </div>
   </div>
 
   <!-- Windows Container -->
@@ -28,10 +26,32 @@
 
   <!-- Taskbar -->
   <div id="taskbar">
-  <div id="start-button">FORGE</div>
-  <div id="taskbar-items"></div>
-</div>
+    <!-- Start Button -->
+    <div id="start-button">FORGE</div>
 
+    <!-- Quick Launch Icons -->
+    <div class="taskbar-divider"></div>
+    <div id="quick-launch">
+      <a href="https://twitter.com" target="_blank">
+        <img src="assets/icons/bird.png" alt="Twitter">
+      </a>
+      <a href="https://etsy.com" target="_blank">
+        <img src="assets/icons/cart.png" alt="Etsy">
+      </a>
+      <a href="https://youtube.com" target="_blank">
+        <img src="assets/icons/play.png" alt="YouTube">
+      </a>
+      <a href="https://makerworld.com" target="_blank">
+        <img src="assets/icons/download.png" alt="MakerWorld">
+      </a>
+    </div>
+    <div class="taskbar-divider"></div>
+
+    <!-- Taskbar Items -->
+    <div id="taskbar-items"></div>
+  </div>
+
+  <!-- Scripts -->
   <script src="js/storage.js"></script>
   <script src="js/taskbar.js"></script>
   <script src="js/windows.js"></script>

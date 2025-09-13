@@ -1,4 +1,6 @@
-/* General look */
+/* ===========================
+   General Look
+   =========================== */
 body {
   margin: 0;
   background: #000;
@@ -7,7 +9,9 @@ body {
   overflow: hidden;
 }
 
-/* Logo */
+/* ===========================
+   Logo
+   =========================== */
 #logo {
   position: absolute;
   top: 20px;
@@ -17,7 +21,9 @@ body {
   z-index: 1000;
 }
 
-/* Desktop icons */
+/* ===========================
+   Desktop Icons
+   =========================== */
 .icon {
   width: 70px;
   text-align: center;
@@ -36,7 +42,9 @@ body {
   color: #fff;
 }
 
-/* Windows (base) */
+/* ===========================
+   Windows (Base)
+   =========================== */
 .window {
   position: absolute;
   background: #111;
@@ -51,7 +59,9 @@ body {
   overflow: hidden; /* contain children */
 }
 
-/* Title bar */
+/* ===========================
+   Title Bar
+   =========================== */
 .title-bar {
   background: #222;
   padding: 3px 6px;
@@ -64,7 +74,6 @@ body {
   font-size: 14px;
   box-sizing: border-box;
 }
-
 .title-text {
   flex: 1;
   text-align: left;
@@ -72,12 +81,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .title-buttons {
   display: flex;
   gap: 5px;
 }
-
 .title-buttons button {
   background: #000;
   color: #fff;
@@ -90,7 +97,9 @@ body {
   line-height: 18px;
 }
 
-/* Window content */
+/* ===========================
+   Window Content
+   =========================== */
 .window-content {
   flex: 1;
   background: #000;
@@ -100,8 +109,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* iFrame windows */
 .window iframe {
   flex: 1;
   border: none;
@@ -110,14 +117,14 @@ body {
   overflow: auto; /* allow scrolling inside iframe */
 }
 
-/* Info window specific */
+/* Info window content */
 .window-content p {
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
 }
 .ok-btn {
-  align-self: flex-end; /* push to bottom-right */
+  align-self: flex-end;
   margin-top: 12px;
   background: #000;
   color: #fff;
@@ -126,21 +133,44 @@ body {
   cursor: pointer;
 }
 
-/* Taskbar */
+/* ===========================
+   Resize Handles
+   =========================== */
+.window .resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+/* Corners */
+.window .resize-handle.nw { top: -2px; left: -2px; cursor: nwse-resize; }
+.window .resize-handle.ne { top: -2px; right: -2px; cursor: nesw-resize; }
+.window .resize-handle.sw { bottom: -2px; left: -2px; cursor: nesw-resize; }
+.window .resize-handle.se { bottom: -2px; right: -2px; cursor: nwse-resize; }
+/* Edges */
+.window .resize-handle.n { top: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
+.window .resize-handle.s { bottom: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
+.window .resize-handle.w { top: 50%; left: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
+.window .resize-handle.e { top: 50%; right: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
+
+/* ===========================
+   Taskbar
+   =========================== */
 #taskbar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 52px;              /* ⬆️ bigger height */
+  height: 56px;                /* larger height */
   background: #111;
   border-top: 1px solid #444;
   display: flex;
   align-items: center;
-  padding: 4px 8px;          /* ⬆️ slightly larger padding */
+  padding: 4px 8px;
   box-sizing: border-box;
   z-index: 2000;
   font-family: "Courier New", monospace;
+  gap: 8px;
 }
 
 /* Start button */
@@ -149,9 +179,9 @@ body {
   color: #000;
   border: 2px solid #555;
   font-weight: bold;
-  font-size: 16px;           /* ⬆️ bigger text */
-  padding: 6px 16px;         /* ⬆️ bigger button */
-  margin-right: 12px;
+  font-size: 16px;
+  padding: 8px 18px;
+  margin-right: 8px;
   cursor: pointer;
   user-select: none;
 }
@@ -159,87 +189,62 @@ body {
   background: #eee;
 }
 
-/* Taskbar items (open windows) */
-#taskbar-items {
-  display: flex;
-  flex: 1;
-  gap: 8px;
-}
-
-.taskbar-item {
-  background: #222;
-  border: 1px solid #666;
-  padding: 6px 14px;         /* ⬆️ bigger tabs */
-  cursor: pointer;
-  font-size: 15px;           /* ⬆️ bigger text */
-  white-space: nowrap;
-  color: #fff;
-}
-.taskbar-item:hover {
-  background: #333;
-}
-
-/* Resize handles */
-.window .resize-handle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: transparent;
-}
-
-/* Corners */
-.window .resize-handle.nw { top: -2px; left: -2px; cursor: nwse-resize; }
-.window .resize-handle.ne { top: -2px; right: -2px; cursor: nesw-resize; }
-.window .resize-handle.sw { bottom: -2px; left: -2px; cursor: nesw-resize; }
-.window .resize-handle.se { bottom: -2px; right: -2px; cursor: nwse-resize; }
-
-/* Edges */
-.window .resize-handle.n { top: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
-.window .resize-handle.s { bottom: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
-.window .resize-handle.w { top: 50%; left: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
-.window .resize-handle.e { top: 50%; right: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
-
-/* Quick Launch section */
+/* ===========================
+   Quick Launch
+   =========================== */
 #quick-launch {
   display: flex;
   align-items: center;
-  gap: 6px;                  /* more spacing */
-  padding: 0 6px;
+  gap: 6px;
 }
-
-/* Each quick launch button */
 #quick-launch a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;               /* ⬆️ larger button */
+  width: 36px;
   height: 36px;
-  border: none;
+  border: 1px solid #888;
   background: #ccc;
-  box-shadow: none;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
   cursor: pointer;
-  padding: 0;
 }
-
-/* Pressed effect */
 #quick-launch a:active {
   box-shadow: inset 1px 1px #fff, inset -1px -1px #555;
 }
-
-/* Quick launch icons */
 #quick-launch img {
-  width: 20px;               /* ⬆️ slightly larger icon */
+  width: 20px;
   height: 20px;
   object-fit: contain;
   background: transparent;
   image-rendering: pixelated;
 }
 
-/* Taskbar divider */
+/* Quick launch divider */
 .taskbar-divider {
   width: 2px;
   height: 60%;
-  margin: 0 4px;
   background: #888;
-  box-shadow: inset -1px 0 #fff, inset 1px 0 #555; /* beveled line */
+  margin: 0 6px;
+  box-shadow: inset -1px 0 #fff, inset 1px 0 #555;
+}
+
+/* ===========================
+   Taskbar Items (Open Windows)
+   =========================== */
+#taskbar-items {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+}
+.taskbar-item {
+  background: #222;
+  border: 1px solid #666;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #fff;
+}
+.taskbar-item:hover {
+  background: #333;
 }

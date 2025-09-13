@@ -15,6 +15,17 @@ const Taskbar = {
         );
       });
     }
+
+    // 🔥 Wire up Quick Launch icons
+    const quickLaunch = document.getElementById("quick-launch");
+    if (quickLaunch) {
+      quickLaunch.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+          window.open(link.href, "_blank"); // always open in new tab
+        });
+      });
+    }
   },
 
   add(appId, title, winEl) {

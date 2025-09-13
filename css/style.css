@@ -179,9 +179,9 @@ body {
   color: #000;
   border: 2px solid #555;
   font-weight: bold;
-  font-size: 16px;
-  padding: 8px 18px;
-  margin-right: 8px;
+  font-size: 18px !important;     /* larger text */
+  padding: 10px 22px !important;  /* larger button */
+  margin-right: 12px;
   cursor: pointer;
   user-select: none;
 }

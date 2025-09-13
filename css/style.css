@@ -156,6 +156,9 @@ body {
 /* ===========================
    Taskbar
    =========================== */
+/* ===========================
+   Taskbar Base
+   =========================== */
 #taskbar {
   position: absolute;
   bottom: 0;
@@ -173,14 +176,16 @@ body {
   gap: 8px;
 }
 
-/* Start button */
+/* ===========================
+   Start Button
+   =========================== */
 #start-button {
   background: #fff;
   color: #000;
   border: 2px solid #555;
   font-weight: bold;
-  font-size: 18px !important;     /* larger text */
-  padding: 10px 22px !important;  /* larger button */
+  font-size: 18px;
+  padding: 10px 22px;
   margin-right: 12px;
   cursor: pointer;
   user-select: none;
@@ -195,31 +200,36 @@ body {
 #quick-launch {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
+
+/* Each quick launch button */
 #quick-launch a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #888;
-  background: #ccc;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
+  width: 40px;                 /* match taskbar height */
+  height: 40px;
+  border: none;                /* remove beveled frame */
+  background: transparent;     /* transparent background */
   cursor: pointer;
+  padding: 0;
 }
 #quick-launch a:active {
-  box-shadow: inset 1px 1px #fff, inset -1px -1px #555;
-}
-#quick-launch img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  background: transparent;
-  image-rendering: pixelated;
+  filter: brightness(80%);     /* subtle "pressed" look */
 }
 
-/* Quick launch divider */
+/* Quick launch icons */
+#quick-launch img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background: transparent !important; 
+  image-rendering: pixelated;
+  display: block;
+}
+
+/* Divider between quick launch + taskbar items */
 .taskbar-divider {
   width: 2px;
   height: 60%;
@@ -234,14 +244,14 @@ body {
 #taskbar-items {
   display: flex;
   flex: 1;
-  gap: 8px;
+  gap: 10px;
 }
 .taskbar-item {
   background: #222;
   border: 1px solid #666;
-  padding: 6px 14px;
+  padding: 8px 16px;          /* scale with bigger taskbar */
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   white-space: nowrap;
   color: #fff;
 }

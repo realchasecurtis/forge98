@@ -198,3 +198,42 @@ body {
 .window .resize-handle.s { bottom: -2px; left: 50%; transform: translateX(-50%); cursor: ns-resize; height: 6px; width: 100%; }
 .window .resize-handle.w { top: 50%; left: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
 .window .resize-handle.e { top: 50%; right: -2px; transform: translateY(-50%); cursor: ew-resize; width: 6px; height: 100%; }
+
+/* Quick Launch section */
+#quick-launch {
+  display: flex;
+  align-items: center;
+  gap: 4px;              /* small spacing between icons */
+  padding: 0 4px;
+}
+
+#quick-launch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;           /* button-like box around each icon */
+  height: 28px;
+  border: 1px solid #888;
+  background: #ccc;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #555; /* win98-style bevel */
+  cursor: pointer;
+}
+
+#quick-launch a:active {
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #555; /* pressed look */
+}
+
+#quick-launch img {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated; /* keeps it crisp if icons are low-res */
+}
+
+/* Taskbar divider */
+.taskbar-divider {
+  width: 2px;
+  height: 60%;
+  margin: 0 4px;
+  background: #888;
+  box-shadow: inset -1px 0 #fff, inset 1px 0 #555; /* beveled line */
+}

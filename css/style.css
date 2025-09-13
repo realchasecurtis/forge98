@@ -195,14 +195,14 @@ body {
 #quick-launch {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 #quick-launch a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border: none;
   background: transparent;
   box-shadow: none;
@@ -224,7 +224,7 @@ body {
   width: 2px;
   height: 60%;
   background: #888;
-  margin: 0 6px;
+  margin: 0 4px;
   box-shadow: inset -1px 0 #fff, inset 1px 0 #555;
 }
 
@@ -234,7 +234,7 @@ body {
 #taskbar-items {
   display: flex;
   flex: 1;
-  gap: 8px;
+  gap: 4px;
 }
 .taskbar-item {
   background: #222;

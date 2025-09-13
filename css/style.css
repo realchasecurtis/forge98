@@ -156,9 +156,6 @@ body {
 /* ===========================
    Taskbar
    =========================== */
-/* ===========================
-   Taskbar Base
-   =========================== */
 #taskbar {
   position: absolute;
   bottom: 0;
@@ -176,17 +173,15 @@ body {
   gap: 8px;
 }
 
-/* ===========================
-   Start Button
-   =========================== */
+/* Start button */
 #start-button {
   background: #fff;
   color: #000;
   border: 2px solid #555;
   font-weight: bold;
-  font-size: 18px;
-  padding: 10px 22px;
-  margin-right: 12px;
+  font-size: 16px;
+  padding: 8px 18px;
+  margin-right: 8px;
   cursor: pointer;
   user-select: none;
 }
@@ -200,36 +195,31 @@ body {
 #quick-launch {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
-
-/* Each quick launch button */
 #quick-launch a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;                 /* match taskbar height */
-  height: 40px;
-  border: none;                /* remove beveled frame */
-  background: transparent;     /* transparent background */
+  width: 36px;
+  height: 36px;
+  border: 1px solid #888;
+  background: #ccc;
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
   cursor: pointer;
-  padding: 0;
 }
 #quick-launch a:active {
-  filter: brightness(80%);     /* subtle "pressed" look */
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #555;
 }
-
-/* Quick launch icons */
 #quick-launch img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
-  background: transparent !important; 
+  background: transparent;
   image-rendering: pixelated;
-  display: block;
 }
 
-/* Divider between quick launch + taskbar items */
+/* Quick launch divider */
 .taskbar-divider {
   width: 2px;
   height: 60%;
@@ -244,14 +234,14 @@ body {
 #taskbar-items {
   display: flex;
   flex: 1;
-  gap: 10px;
+  gap: 8px;
 }
 .taskbar-item {
   background: #222;
   border: 1px solid #666;
-  padding: 8px 16px;          /* scale with bigger taskbar */
+  padding: 6px 14px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   white-space: nowrap;
   color: #fff;
 }

@@ -237,3 +237,11 @@ body {
   background: #888;
   box-shadow: inset -1px 0 #fff, inset 1px 0 #555; /* beveled line */
 }
+
+/* Force quick launch icons to proper Win98 size */
+#quick-launch img {
+  width: 16px !important;
+  height: 16px !important;
+  object-fit: contain;
+  image-rendering: pixelated; /* crisp retro look */
+}

@@ -203,9 +203,9 @@ body {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border: 1px solid #888;
-  background: #ccc;
-  box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
+  border: none;
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
 }
 #quick-launch a:active {

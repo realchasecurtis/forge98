@@ -203,32 +203,36 @@ body {
 #quick-launch {
   display: flex;
   align-items: center;
-  gap: 4px;              /* small spacing between icons */
+  gap: 2px;                /* tighter spacing, Win98 style */
   padding: 0 4px;
 }
 
+/* Each quick launch button */
 #quick-launch a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;             /* classic size */
+  height: 24px;
   border: 1px solid #888;
   background: #ccc;
   box-shadow: inset -1px -1px #fff, inset 1px 1px #555;
   cursor: pointer;
-  padding: 0;          /* 🔥 removes any default spacing */
-  overflow: hidden;    /* ensures icon doesn't spill */
+  padding: 0;
 }
 
+/* Pressed effect */
 #quick-launch a:active {
-  box-shadow: inset 1px 1px #fff, inset -1px -1px #555; /* pressed look */
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #555;
 }
 
+/* Quick launch icons */
 #quick-launch img {
   width: 16px;
   height: 16px;
-  image-rendering: pixelated; /* keeps it crisp if icons are low-res */
+  object-fit: contain;
+  background: transparent;  /* no white box behind */
+  image-rendering: pixelated; /* crisp retro look */
 }
 
 /* Taskbar divider */

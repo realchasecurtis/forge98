@@ -5,40 +5,47 @@ window.onload = () => {
   Storage.loadIconPositions();
   Taskbar.init();
 
-  // Apply behaviors to each icon
+  // Make all desktop icons draggable + interactive
   document.querySelectorAll(".icon").forEach(icon => {
-    if (!isMobile()) {
-      // Desktop: draggable + double-click
-      makeIconDraggable(icon);
+    makeIconDraggable(icon);
 
-      icon.addEventListener("dblclick", () => {
-        const appId = icon.dataset.app;
-        openApp(appId); // handled in windows.js
-      });
-    } else {
-      // Mobile: single tap to open, no dragging
-      icon.addEventListener("click", () => {
-        const appId = icon.dataset.app;
-        openApp(appId);
-      });
-    }
+    // Double-click to open app
+    icon.addEventListener("dblclick", () => {
+      const appId = icon.dataset.app;
+      openApp(appId); // ✅ all apps handled in windows.js
+    });
   });
 };
 
 // =============================
 // Helpers
 // =============================
-
-// Detect if device is "mobile" (based on screen width)
-function isMobile() {
-  return window.innerWidth <= 768;
-}
-
-// Allow dragging only for desktop
 function makeIconDraggable(icon) {
   let offsetX, offsetY, isDragging = false;
 
   icon.addEventListener("mousedown", e => {
     e.preventDefault();
     isDragging = true;
-    offsetX = e.clientX - icon.off
+    offsetX = e.clientX - icon.offsetLeft;
+    offsetY = e.clientY - icon.offsetTop;
+
+    function onMouseMove(e2) {
+      if (isDragging) {
+        icon.style.left = (e2.clientX - offsetX) + "px";
+        icon.style.top = (e2.clientY - offsetY) + "px";
+      }
+    }
+
+    function onMouseUp() {
+      if (isDragging) {
+        isDragging = false;
+        Storage.saveIconPositions();
+      }
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  });
+}

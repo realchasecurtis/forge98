@@ -232,6 +232,14 @@ function openApp(appId) {
       createWindow("osrs", "OSRS", "https://osrs.forgebunker.com");
       break;
 
+    case "trash":
+      createWindow("trash", "Trash", "https://trash.forgebunker.com");
+      break;
+
+    case "merch":
+      createWindow("merch", "Merch", "https://merch.forgebunker.com");
+      break;
+
     case "mail":
   const win = createInfoWindow(
     "mail",
@@ -239,7 +247,7 @@ function openApp(appId) {
     `
       <form id="signup-form" class="signup-form">
         <input type="email" name="email" placeholder="Enter your email." required>
-        <button type="submit">JOIN</button>
+        <button type="submit">Subscribe</button>
       </form>
       <div id="form-message" class="message"></div>
     `

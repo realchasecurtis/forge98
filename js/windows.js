@@ -321,3 +321,22 @@ function openApp(appId) {
       console.warn(`No app registered for id: ${appId}`);
   }
 }
+
+// =============================
+// Mobile adjustments
+// =============================
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+// On resize, enforce fullscreen windows for mobile
+window.addEventListener("resize", () => {
+  if (isMobile()) {
+    document.querySelectorAll(".window").forEach(win => {
+      win.style.top = "0px";
+      win.style.left = "0px";
+      win.style.width = "100%";
+      win.style.height = "100%";
+    });
+  }
+});

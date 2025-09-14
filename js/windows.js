@@ -247,7 +247,7 @@ function openApp(appId) {
     `
       <form id="signup-form" class="signup-form">
         <input type="email" name="email" placeholder="Enter your email." required>
-        <button type="submit">Subscribe</button>
+        <button type="submit">Join</button>
       </form>
       <div id="form-message" class="message"></div>
     `

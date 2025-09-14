@@ -223,46 +223,6 @@ function bringToFront(win) {
 // App router
 // =============================
 function openApp(appId) {
-  if (appId === "mail") {
-    // Use info window with subscription form
-    const win = createInfoWindow(
-      "mail",
-      "Subscribe",
-      `
-        <form id="signup-form" class="signup-form">
-          <input type="email" name="email" placeholder="Enter your email." required>
-          <button type="submit">JOIN</button>
-        </form>
-        <div id="form-message" class="message"></div>
-      `
-    );
-
-    // Hook form logic inside window
-    const form = win.querySelector("#signup-form");
-    const message = win.querySelector("#form-message");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const data = new FormData(form);
-      message.textContent = "Submitting...";
-
-      fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
-        method: "POST",
-        body: data
-      }).then(() => {
-        message.textContent = "Success.";
-        form.reset();
-      }).catch(() => {
-        message.textContent = "Failure. Please try again.";
-      });
-    });
-  }
-}
-
-// =============================
-// App router
-// =============================
-function openApp(appId) {
   switch (appId) {
     case "halo":
       createWindow("halo", "Halo", "https://halo.forgebunker.com");
@@ -273,7 +233,6 @@ function openApp(appId) {
       break;
 
     case "mail":
-      // Use info window with subscription form
       const win = createInfoWindow(
         "mail",
         "Subscribe",
@@ -286,7 +245,7 @@ function openApp(appId) {
         `
       );
 
-      // Hook form logic inside window
+      // Hook form logic
       const form = win.querySelector("#signup-form");
       const message = win.querySelector("#form-message");
 

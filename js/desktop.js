@@ -13,28 +13,6 @@ const Apps = {
         <button type="submit">JOIN</button>
       </form>
       <div id="form-message" class="message"></div>
-
-      <script>
-        const form = document.getElementById("signup-form");
-        const message = document.getElementById("form-message");
-
-        form.addEventListener("submit", function(e) {
-          e.preventDefault();
-          const data = new FormData(form);
-
-          message.textContent = "Submitting...";
-
-          fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
-            method: "POST",
-            body: data
-          }).then(() => {
-            message.textContent = "Success.";
-            form.reset();
-          }).catch(() => {
-            message.textContent = "Failure. Please try again.";
-          });
-        });
-      </script>
     `
   }
 };
@@ -53,11 +31,48 @@ window.onload = () => {
     icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
       if (Apps[appId]) {
-        openApp(appId); // ✅ use the new unified openApp()
+        openApp(appId);
       }
     });
   });
 };
+
+// =============================
+// App opening logic
+// =============================
+function openApp(appId) {
+  const app = Apps[appId];
+
+  if (app.type === "iframe") {
+    createWindow(appId, app.title, app.url);
+  } 
+  else if (app.type === "info") {
+    const win = createInfoWindow(appId, app.title, app.message);
+
+    // ✅ Bind logic for the signup form (since inline <script> won’t run)
+    const form = win.querySelector("#signup-form");
+    const messageEl = win.querySelector("#form-message");
+
+    if (form && messageEl) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        messageEl.textContent = "Submitting...";
+
+        fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
+          method: "POST",
+          body: data
+        }).then(() => {
+          messageEl.textContent = "Success.";
+          form.reset();
+        }).catch(() => {
+          messageEl.textContent = "Failure. Please try again.";
+        });
+      });
+    }
+  }
+}
 
 // =============================
 // Helpers

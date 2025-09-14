@@ -1,13 +1,4 @@
 // =============================
-// App registry
-// =============================
-const Apps = {
-  halo: { type: "iframe", title: "Halo", url: "https://halo.forgebunker.com" },
-  osrs: { type: "iframe", title: "OSRS", url: "https://osrs.forgebunker.com" },
-  subscribe: { type: "custom", title: "Subscribe" } // handled in openApp()
-};
-
-// =============================
 // Desktop initialization
 // =============================
 window.onload = () => {
@@ -21,9 +12,7 @@ window.onload = () => {
     // Double-click to open app
     icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
-      if (Apps[appId]) {
-        openApp(appId); // ✅ all logic handled in windows.js
-      }
+      openApp(appId); // ✅ all apps handled in windows.js
     });
   });
 };

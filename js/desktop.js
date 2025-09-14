@@ -4,26 +4,17 @@
 const Apps = {
   halo: { type: "iframe", title: "Halo", url: "https://halo.forgebunker.com" },
   osrs: { type: "iframe", title: "OSRS", url: "https://osrs.forgebunker.com" },
-  mail: { 
-    type: "info", 
-    title: "Subscribe", 
-    message: `
-      <form id="signup-form" class="signup-form">
-        <input type="email" name="email" placeholder="Enter your email." required>
-        <button type="submit">JOIN</button>
-      </form>
-      <div id="form-message" class="message"></div>
-    `
-  }
+  subscribe: { type: "custom", title: "Subscribe" } // handled in openApp()
 };
 
 // =============================
-// Handles desktop icons
+// Desktop initialization
 // =============================
 window.onload = () => {
   Storage.loadIconPositions();
   Taskbar.init();
 
+  // Make all desktop icons draggable + interactive
   document.querySelectorAll(".icon").forEach(icon => {
     makeIconDraggable(icon);
 
@@ -31,48 +22,11 @@ window.onload = () => {
     icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
       if (Apps[appId]) {
-        openApp(appId);
+        openApp(appId); // ✅ all logic handled in windows.js
       }
     });
   });
 };
-
-// =============================
-// App opening logic
-// =============================
-function openApp(appId) {
-  const app = Apps[appId];
-
-  if (app.type === "iframe") {
-    createWindow(appId, app.title, app.url);
-  } 
-  else if (app.type === "info") {
-    const win = createInfoWindow(appId, app.title, app.message);
-
-    // ✅ Bind logic for the signup form (since inline <script> won’t run)
-    const form = win.querySelector("#signup-form");
-    const messageEl = win.querySelector("#form-message");
-
-    if (form && messageEl) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const data = new FormData(form);
-
-        messageEl.textContent = "Submitting...";
-
-        fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
-          method: "POST",
-          body: data
-        }).then(() => {
-          messageEl.textContent = "Success.";
-          form.reset();
-        }).catch(() => {
-          messageEl.textContent = "Failure. Please try again.";
-        });
-      });
-    }
-  }
-}
 
 // =============================
 // Helpers

@@ -1,10 +1,47 @@
+// =============================
 // App registry
+// =============================
 const Apps = {
-  halo: { title: "Halo", url: "https://halo.forgebunker.com" },
-  osrs: { title: "OSRS", url: "https://osrs.forgebunker.com" }
+  halo: { type: "iframe", title: "Halo", url: "https://halo.forgebunker.com" },
+  osrs: { type: "iframe", title: "OSRS", url: "https://osrs.forgebunker.com" },
+  mail: { 
+    type: "info", 
+    title: "Subscribe", 
+    message: `
+      <form id="signup-form" class="signup-form">
+        <input type="email" name="email" placeholder="Enter your email." required>
+        <button type="submit">JOIN</button>
+      </form>
+      <div id="form-message" class="message"></div>
+
+      <script>
+        const form = document.getElementById("signup-form");
+        const message = document.getElementById("form-message");
+
+        form.addEventListener("submit", function(e) {
+          e.preventDefault();
+          const data = new FormData(form);
+
+          message.textContent = "Submitting...";
+
+          fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
+            method: "POST",
+            body: data
+          }).then(() => {
+            message.textContent = "Success.";
+            form.reset();
+          }).catch(() => {
+            message.textContent = "Failure. Please try again.";
+          });
+        });
+      </script>
+    `
+  }
 };
 
+// =============================
 // Handles desktop icons
+// =============================
 window.onload = () => {
   Storage.loadIconPositions();
   Taskbar.init();
@@ -15,16 +52,16 @@ window.onload = () => {
     // Double-click to open app
     icon.addEventListener("dblclick", () => {
       const appId = icon.dataset.app;
-      const app = Apps[appId];
-      if (app) {
-        createWindow(appId, app.title, app.url);
+      if (Apps[appId]) {
+        openApp(appId); // ✅ use the new unified openApp()
       }
     });
   });
 };
 
-// --- Helpers ---
-
+// =============================
+// Helpers
+// =============================
 function makeIconDraggable(icon) {
   let offsetX, offsetY, isDragging = false;
 

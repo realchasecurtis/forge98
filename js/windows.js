@@ -315,3 +315,9 @@ function openApp(appId) {
     });
   });
   break;
+
+
+    default:
+      console.warn(`No app registered for id: ${appId}`);
+  }
+}

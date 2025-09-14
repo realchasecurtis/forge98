@@ -240,7 +240,7 @@ function openApp(appId) {
       createWindow("merch", "Merch", "https://merch.forgebunker.com");
       break;
 
-    case "mail":
+    case "mail": {
   const win = createInfoWindow(
     "mail",
     "Subscribe",
@@ -323,7 +323,7 @@ function openApp(appId) {
     });
   });
   break;
-
+}
 
     default:
       console.warn(`No app registered for id: ${appId}`);

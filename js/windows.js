@@ -233,40 +233,85 @@ function openApp(appId) {
       break;
 
     case "mail":
-      const win = createInfoWindow(
-        "mail",
-        "Subscribe",
-        `
-          <form id="signup-form" class="signup-form">
-            <input type="email" name="email" placeholder="Enter your email." required>
-            <button type="submit">JOIN</button>
-          </form>
-          <div id="form-message" class="message"></div>
-        `
-      );
+  const win = createInfoWindow(
+    "mail",
+    "Subscribe",
+    `
+      <form id="signup-form" class="signup-form">
+        <input type="email" name="email" placeholder="Enter your email." required>
+        <button type="submit">JOIN</button>
+      </form>
+      <div id="form-message" class="message"></div>
+    `
+  );
 
-      // Hook form logic
-      const form = win.querySelector("#signup-form");
-      const message = win.querySelector("#form-message");
-
-      form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        const data = new FormData(form);
-        message.textContent = "Submitting...";
-
-        fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
-          method: "POST",
-          body: data
-        }).then(() => {
-          message.textContent = "Success.";
-          form.reset();
-        }).catch(() => {
-          message.textContent = "Failure. Please try again.";
-        });
-      });
-      break;
-
-    default:
-      console.warn(`No app registered for id: ${appId}`);
+  // ✅ Apply styles dynamically if not already in global CSS
+  const styleId = "signup-form-styles";
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement("style");
+    style.id = styleId;
+    style.textContent = `
+      .signup-form {
+        display: flex;
+        max-width: 800px;
+        margin: 20px auto;
+        border: 2px solid #fff;
+        font-family: 'Courier New', monospace;
+        background: transparent;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .signup-form input[type="email"] {
+        flex: 1;
+        padding: 14px;
+        border: none;
+        background: transparent;
+        color: #fff;
+        font-size: 16px;
+        outline: none;
+        font-family: 'Courier New', monospace;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+      .signup-form button {
+        width: 140px;
+        border: none;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-family: 'Courier New', monospace;
+      }
+      .message {
+        text-align: left;
+        color: #fff;
+        margin: 8px 0 0 0;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+      }
+    `;
+    document.head.appendChild(style);
   }
-}
+
+  // ✅ Hook form logic
+  const form = win.querySelector("#signup-form");
+  const message = win.querySelector("#form-message");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    message.textContent = "Submitting...";
+
+    fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
+      method: "POST",
+      body: data
+    }).then(() => {
+      message.textContent = "Success.";
+      form.reset();
+    }).catch(() => {
+      message.textContent = "Failure. Please try again.";
+    });
+  });
+  break;

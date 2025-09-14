@@ -222,3 +222,80 @@ function bringToFront(win) {
   zIndexCounter++;
   win.style.zIndex = zIndexCounter;
 }
+
+/**
+ * Opens app windows based on appId
+ */
+function openApp(appId) {
+  if (appId === "subscribe") {
+    // 🔥 Custom subscribe window
+    const win = document.createElement("div");
+    win.className = "window";
+    win.style.top = "140px";
+    win.style.left = "240px";
+    win.style.width = "420px";
+    win.style.height = "auto";
+
+    // Title bar
+    const titleBar = document.createElement("div");
+    titleBar.className = "title-bar";
+    titleBar.innerHTML = `<span>Subscribe</span>`;
+    const buttons = document.createElement("div");
+    buttons.className = "title-buttons";
+    const closeBtn = document.createElement("button");
+    closeBtn.innerText = "X";
+    buttons.appendChild(closeBtn);
+    titleBar.appendChild(buttons);
+
+    // Content
+    const content = document.createElement("div");
+    content.className = "window-content";
+    content.innerHTML = `
+      <form id="signup-form" class="signup-form">
+        <input type="email" name="email" placeholder="Enter your email." required>
+        <button type="submit">JOIN</button>
+      </form>
+      <div id="form-message" class="message"></div>
+    `;
+
+    win.appendChild(titleBar);
+    win.appendChild(content);
+    document.getElementById("windows").appendChild(win);
+
+    // Resize handles
+    addResizeHandles(win);
+
+    // Taskbar button
+    const taskbarBtn = Taskbar.add(appId, "Subscribe", win);
+
+    // Close button
+    closeBtn.onclick = () => {
+      win.remove();
+      taskbarBtn.remove();
+    };
+
+    // Dragging
+    enableDragging(win, titleBar);
+
+    // Bring to front
+    win.onmousedown = () => bringToFront(win);
+
+    // 🔥 Signup form script binding
+    const form = content.querySelector("#signup-form");
+    const message = content.querySelector("#form-message");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      message.textContent = "Submitting...";
+      fetch("https://script.google.com/macros/s/AKfycbwYKJJ9bi1lIolTYu56ZAKvm7P9YgerzIEiUaJftqLONNhNmnO8M2e4xy71SlK30AAg/exec", {
+        method: "POST",
+        body: data
+      }).then(() => {
+        message.textContent = "Success.";
+        form.reset();
+      }).catch(() => {
+        message.textContent = "Failure. Please try again.";
+      });
+    });
+  }
+}
